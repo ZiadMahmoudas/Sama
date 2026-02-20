@@ -44,33 +44,36 @@ links.forEach(link => {
         });
 
         // Counter Animation
-        const counters = document.querySelectorAll('.stat-number[data-count]');
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    counters.forEach(counter => {
-                        const target = parseInt(counter.dataset.count);
-                        const duration = 2000;
-                        const step = target / (duration / 16);
-                        let current = 0;
+const counters = document.querySelectorAll('.stat-number[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.count);
+                
+                const suffix = counter.dataset.suffix || ''; 
+                
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
 
-                        const update = () => {
-                            current += step;
-                            if (current < target) {
-                                counter.textContent = Math.floor(current);
-                                requestAnimationFrame(update);
-                            } else {
-                                counter.textContent = target;
-                            }
-                        };
-                        update();
-                    });
-                    counterObserver.disconnect();
-                }
+                const update = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current) + suffix; 
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.textContent = target + suffix; 
+                    }
+                };
+                update();
             });
-        }, { threshold: 0.5 });
+            counterObserver.disconnect();
+        }
+    });
+}, { threshold: 0.5 });
 
-        counterObserver.observe(document.querySelector('.stats-bar'));
+counterObserver.observe(document.querySelector('.stats-bar'));
 
         // FAQ Accordion
         document.querySelectorAll('.faq-item').forEach(item => {
