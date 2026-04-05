@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
 
-    <link rel="icon" href="sima-logo.png" />
+    <link rel="icon" href="images/Logoicon.svg" />
 
     <style>
       * {
@@ -25,7 +25,22 @@
         padding: 0;
         box-sizing: border-box;
       }
+@keyframes bubbleClick {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
 
+.click-bubble {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  border: 2px solid rgba(139, 92, 246, 0.7);
+  background: rgba(139, 92, 246, 0.15);
+  animation: bubbleClick 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
       :root {
         --dark: #0f0b1a;
         --darker: #080510;
@@ -1875,17 +1890,64 @@
         opacity: 1;
         transform: translateY(0);
       }
+
+      .cursor {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #8b5cf6;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, opacity 0.15s;
+}
+
+.cursor.hover {
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.cursor-bubble {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(139, 92, 246, 0.2);
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  width: 44px;
+  height: 44px;
+  opacity: 0;
+  transition: none;
+}
+
+.cursor-bubble.active {
+  animation: bubblePulse 1.4s ease-in-out infinite;
+}
+
+@keyframes bubblePulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.15;
+  }
+}
     </style>
   </head>
 
   <body>
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor"></div>
+<div class="cursor-bubble" id="cursorBubble"></div>
 
     <!-- Preloader -->
     <div class="preloader" id="preloader">
       <div class="loader">
-        <img src="images/logo1.svg" alt="SIMA" class="loader-logo" />
+        <img src="images/logo3.svg" alt="SIMA" class="loader-logo" />
         <div class="loader-bar">
           <div class="loader-progress"></div>
         </div>
@@ -1897,7 +1959,7 @@
       <div class="container">
         <div class="nav-content">
           <a href="#" class="logo">
-            <img src="images/logo1.svg" alt="SIMA" />
+            <img src="images/logo3.svg" alt="SIMA" />
       
           </a>
 
@@ -3080,7 +3142,7 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="#" class="logo">
-              <img src="images/logo1.svg" alt="SIMA" />
+              <img src="images/logo3.svg" alt="SIMA" />
             </a>
             <p>
               وكالة تسويق رقمي متكاملة نساعدك في بناء حضور رقمي قوي ومؤثر ينقل
@@ -3164,23 +3226,26 @@
       });
 
       /* ============ CURSOR ============ */
-      const cursor = document.getElementById("cursor");
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
-      document
-        .querySelectorAll(
-          "a, button, .service-card, .pricing-card, .portfolio-item",
-        )
-        .forEach((el) => {
-          el.addEventListener("mouseenter", () =>
-            cursor.classList.add("hover"),
-          );
-          el.addEventListener("mouseleave", () =>
-            cursor.classList.remove("hover"),
-          );
-        });
+const cursor = document.getElementById("cursor");
+const bubble = document.getElementById("cursorBubble");
+
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+  bubble.style.left = e.clientX + "px";
+  bubble.style.top = e.clientY + "px";
+});
+
+document.querySelectorAll("a, button, .service-card, .pricing-card, .portfolio-item").forEach((el) => {
+  el.addEventListener("mouseenter", () => {
+    cursor.classList.add("hover");
+    bubble.classList.add("active");
+  });
+  el.addEventListener("mouseleave", () => {
+    cursor.classList.remove("hover");
+    bubble.classList.remove("active");
+  });
+});
 
       /* ============ NAVBAR ============ */
       const navbar = document.getElementById("navbar");
@@ -3372,6 +3437,14 @@
           setTimeout(() => p.remove(), 800);
         }
       }
+      document.addEventListener("click", (e) => {
+  const b = document.createElement("div");
+  b.className = "click-bubble";
+  b.style.left = e.clientX + "px";
+  b.style.top = e.clientY + "px";
+  document.body.appendChild(b);
+  setTimeout(() => b.remove(), 500);
+});
     </script>
   </body>
 </html>
