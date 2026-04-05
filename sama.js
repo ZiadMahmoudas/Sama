@@ -77,7 +77,7 @@ async function loadPricing() {
           </li>
         `).join('')}
       </ul>
-      <a href="#contact" class="pricing-btn ${p.is_featured ? 'primary' : 'secondary'}">ابدأ الآن</a>
+      <a target="_blank" href="#contact" class="pricing-btn ${p.is_featured ? 'primary' : 'secondary'}">ابدأ الآن</a>
     </div>
   `).join('');
 
