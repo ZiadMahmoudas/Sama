@@ -285,12 +285,7 @@
       .item-card.disabled {
         opacity: 0.5;
       }
-      .item-drag {
-        color: var(--gray);
-        cursor: grab;
-        font-size: 1.2rem;
-        flex-shrink: 0;
-      }
+ 
       .item-body {
         flex: 1;
         min-width: 0;
@@ -1561,7 +1556,7 @@
           .map(
             (s) => `
     <div class="item-card ${s.enabled ? "" : "disabled"}" id="svc-${s.id}">
-      <span class="item-drag">⠿</span>
+  
       <div class="item-body">
         <div class="item-title">${s.number} — ${s.title}</div>
         <div class="item-desc">${s.description}</div>
@@ -1653,7 +1648,6 @@
           .map(
             (p) => `
     <div class="item-card ${p.enabled ? "" : "disabled"}">
-      <span class="item-drag">⠿</span>
       <div class="item-body">
         <div class="item-title" style="display:flex;align-items:center;gap:.5rem">
           ${p.name}
@@ -1751,7 +1745,6 @@
           .map(
             (f) => `
     <div class="item-card ${f.enabled ? "" : "disabled"}">
-      <span class="item-drag">⠿</span>
       <div class="item-body">
         <div class="item-title">${f.question}</div>
         <div class="item-desc">${f.answer}</div>
@@ -1831,7 +1824,6 @@
           .map(
             (p) => `
     <div class="item-card ${p.enabled ? "" : "disabled"}">
-      <span class="item-drag">⠿</span>
       ${p.image_url ? `<div style="width:60px;height:45px;border-radius:8px;background:url('${p.image_url}') center/cover,${p.gradient};flex-shrink:0"></div>` : `<div style="width:60px;height:45px;border-radius:8px;background:${p.gradient};flex-shrink:0"></div>`}
       <div class="item-body">
         <div class="item-title">${p.title}</div>

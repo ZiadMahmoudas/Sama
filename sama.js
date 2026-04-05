@@ -155,23 +155,42 @@ async function loadPortfolio() {
 // LOGOS
 // ============================
 async function loadLogos() {
+  const CACHE_KEY = 'mysite_logos_v1';
+  const CACHE_TTL = 60 * 60 * 1000; 
+
+  // ← جرب الـ cache الأول فوراً
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { data, timestamp } = JSON.parse(cached);
+    applyLogos(data); // ← يطبق اللوجو فوراً بدون انتظار
+
+    // لو الـ cache قديم، جيب جديد في الخلفية
+    if (Date.now() - timestamp < CACHE_TTL) return;
+  }
+
+  // ← جيب من الداتابيز (في الخلفية لو في cache)
   const { data } = await db.from('site_logos').select('*');
   if (!data || !data.length) return;
 
+  localStorage.setItem(CACHE_KEY, JSON.stringify({
+    data,
+    timestamp: Date.now()
+  }));
+
+  applyLogos(data);
+}
+
+function applyLogos(data) {
   const map = {};
   data.forEach(l => map[l.key] = l.url);
 
-  // Navbar logos
   document.querySelectorAll('.navbar .logo img, .nav-logo').forEach(img => {
     if (map.navbar) img.src = map.navbar;
   });
-  // Preloader logo
   const preloaderLogo = document.querySelector('.loader-logo');
   if (preloaderLogo && map.preloader) preloaderLogo.src = map.preloader;
-  // Hero logo
   const heroLogo = document.querySelector('.hero-logo');
   if (heroLogo && map.hero) heroLogo.src = map.hero;
-  // Footer logo
   document.querySelectorAll('footer .logo img').forEach(img => {
     if (map.footer) img.src = map.footer;
   });
@@ -202,3 +221,4 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPortfolio();
   loadLogos();
 });
+loadLogos();
