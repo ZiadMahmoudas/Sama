@@ -91,8 +91,8 @@
         gap: 1.5rem;
       }
       .loader-logo {
-        width: 80px;
-        height: 80px;
+        width: 150px;
+        height: auto;
         animation: pulse 1.5s ease-in-out infinite;
       }
       .loader-bar {
@@ -290,8 +290,8 @@
         transform: scale(1.05);
       }
       .logo img {
-        width: 50px;
-        height: 50px;
+        width: 135px;
+        height: auto;
         filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
       }
       .logo-text {
@@ -803,19 +803,19 @@
       /* ============================================
            MARQUEE FIX - بيشتغل صح على كل الشاشات
         ============================================ */
-      .marquee-section {
-        padding: 1.25rem 0;
-        background: rgba(139, 92, 246, 0.05);
-        overflow: hidden;
-        width: 100%;
-      }
-      .marquee-track {
-        display: flex;
-        /* عرض max-content بيخلي الـ animation تشتغل بشكل صح */
-        width: max-content;
-        animation: marqueeScroll 28s linear infinite;
-        will-change: transform;
-      }
+   .marquee-section {
+  padding: 1.25rem 0;
+  background: rgba(139, 92, 246, 0.05);
+  overflow: hidden;
+  width: 100%;
+  direction: ltr; /* ← هذا هو الحل */
+}
+   .marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 20s linear infinite;
+  will-change: transform;
+}
       .marquee-item {
         white-space: nowrap;
         font-size: 1.15rem;
@@ -1072,61 +1072,88 @@
           grid-template-columns: 1fr;
         }
       }
-      .portfolio-item {
-        position: relative;
-        aspect-ratio: 16/10;
-        border-radius: 24px;
-        overflow: hidden;
-        background: linear-gradient(
-          145deg,
-          rgba(139, 92, 246, 0.2),
-          rgba(109, 40, 217, 0.1)
-        );
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        transition: all 0.5s ease;
-      }
-      .portfolio-item:hover {
-        transform: scale(1.03);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-      }
-      .portfolio-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(15, 11, 26, 0.95),
-          transparent
-        );
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 2rem;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      .portfolio-item:hover .portfolio-overlay {
-        opacity: 1;
-      }
-      .portfolio-overlay h4 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .portfolio-overlay p {
-        color: var(--gray);
-        font-size: 0.9rem;
-      }
-      .portfolio-overlay .tags {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-      .portfolio-overlay .tag {
-        background: rgba(139, 92, 246, 0.3);
-        color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 50px;
-        font-size: 0.75rem;
-      }
+   /* Portfolio - new behavior */
+.portfolio-item {
+  position: relative;
+  aspect-ratio: 16/10;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  transition: all 0.4s ease;
+}
+
+/* الحالة العادية: الكلام ظاهر */
+.portfolio-default {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(145deg, rgba(139,92,246,0.15), rgba(109,40,217,0.1));
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+.portfolio-default h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+.portfolio-default p {
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* الحالة عند الهوفر: الصورة + اللينك */
+.portfolio-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1.75rem;
+}
+.hover-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hover-link {
+  position: relative;
+  z-index: 1;
+  background: rgba(139, 92, 246, 0.9);
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.hover-link:hover {
+  background: var(--secondary);
+  transform: translateY(-3px);
+}
+
+/* التبديل عند الهوفر */
+.portfolio-item:hover .portfolio-default {
+  opacity: 0;
+}
+.portfolio-item:hover .portfolio-hover {
+  opacity: 1;
+}
+.portfolio-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
 
       /* Pricing Section */
       .pricing-section {
@@ -1858,7 +1885,7 @@
     <!-- Preloader -->
     <div class="preloader" id="preloader">
       <div class="loader">
-        <img src="images/logo.svg" alt="SIMA" class="loader-logo" />
+        <img src="images/logo1.svg" alt="SIMA" class="loader-logo" />
         <div class="loader-bar">
           <div class="loader-progress"></div>
         </div>
@@ -1870,11 +1897,8 @@
       <div class="container">
         <div class="nav-content">
           <a href="#" class="logo">
-            <img src="images/logo.svg" alt="SIMA" />
-            <div class="logo-text">
-              <span class="main">SIMA</span>
-              <span class="sub">نمنح مشروعك سمته</span>
-            </div>
+            <img src="images/logo1.svg" alt="SIMA" />
+      
           </a>
 
           <div class="nav-links">
@@ -2019,7 +2043,7 @@
               <div class="hero-rings"></div>
               <div class="hero-rings"></div>
               <div class="hero-rings"></div>
-              <img src="images/logo.svg" alt="SIMA" class="hero-logo" />
+              <img src="images/Logoicon.svg" alt="SIMA" class="hero-logo" />
 
               <div class="floating-card card-1">
                 <div class="icon">📈</div>
@@ -2168,20 +2192,7 @@
           <div class="service-card reveal">
             <span class="number">04</span>
             <div class="service-icon">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
-                />
-              </svg>
+           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 7C6 5.11438 6 4.17157 6.58579 3.58579C7.17157 3 8.11438 3 10 3H12H14C15.8856 3 16.8284 3 17.4142 3.58579C18 4.17157 18 5.11438 18 7V12V17C18 18.8856 18 19.8284 17.4142 20.4142C16.8284 21 15.8856 21 14 21H12H10C8.11438 21 7.17157 21 6.58579 20.4142C6 19.8284 6 18.8856 6 17V12V7Z" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"></path> <path d="M11.5 18H12.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> </g></svg>
             </div>
             <h3>تطوير تطبيقات الموبايل</h3>
             <p>
@@ -2285,132 +2296,111 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio">
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-badge"><span>✦ أعمالنا</span></div>
-          <h2 class="section-title">
-            مشاريع <span class="text-gradient">نفتخر</span> بها
-          </h2>
-          <p class="section-desc">
-            نماذج من أعمالنا التي ساهمت في نجاح عملائنا
-          </p>
-        </div>
+<section id="portfolio">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge"><span>✦ أعمالنا</span></div>
+      <h2 class="section-title">
+        مشاريع <span class="text-gradient">نفتخر</span> بها
+      </h2>
+      <p class="section-desc">نماذج من أعمالنا التي ساهمت في نجاح عملائنا</p>
+    </div>
 
-        <div class="portfolio-grid">
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(139, 92, 246, 0.3),
-                rgba(109, 40, 217, 0.2)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>متجر أونلاين</h4>
-              <p>هوية بصرية + متجر إلكتروني متكامل</p>
-              <div class="tags">
-                <span class="tag">براندينج</span
-                ><span class="tag">E-commerce</span>
-              </div>
-            </div>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>متجر أونلاين</h4>
+          <p>هوية بصرية + متجر إلكتروني متكامل</p>
+          <div class="tags">
+            <span class="tag">براندينج</span>
+            <span class="tag">E-commerce</span>
           </div>
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(167, 139, 250, 0.3),
-                rgba(139, 92, 246, 0.2)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>مطعم راقي</h4>
-              <p>حملة تسويقية شاملة + إدارة سوشيال</p>
-              <div class="tags">
-                <span class="tag">سوشيال</span><span class="tag">إعلانات</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(196, 181, 253, 0.3),
-                rgba(167, 139, 250, 0.2)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>شركة تقنية</h4>
-              <p>موقع + SEO + تسويق بالمحتوى</p>
-              <div class="tags">
-                <span class="tag">موقع</span><span class="tag">SEO</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(109, 40, 217, 0.3),
-                rgba(139, 92, 246, 0.2)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>عيادة طبية</h4>
-              <p>هوية + موقع حجوزات + إعلانات</p>
-              <div class="tags">
-                <span class="tag">براندينج</span><span class="tag">موقع</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(139, 92, 246, 0.25),
-                rgba(167, 139, 250, 0.15)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>علامة أزياء</h4>
-              <p>تصوير + محتوى + حملات إعلانية</p>
-              <div class="tags">
-                <span class="tag">محتوى</span><span class="tag">إعلانات</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="portfolio-item reveal"
-            style="
-              background: linear-gradient(
-                145deg,
-                rgba(167, 139, 250, 0.25),
-                rgba(109, 40, 217, 0.15)
-              );
-            "
-          >
-            <div class="portfolio-overlay">
-              <h4>شركة ناشئة</h4>
-              <p>استراتيجية + هوية + إطلاق</p>
-              <div class="tags">
-                <span class="tag">استراتيجية</span
-                ><span class="tag">إطلاق</span>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/1.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(139,92,246,0.5), rgba(109,40,217,0.4));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
         </div>
       </div>
-    </section>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>مطعم راقي</h4>
+          <p>حملة تسويقية شاملة + إدارة سوشيال</p>
+          <div class="tags">
+            <span class="tag">سوشيال</span>
+            <span class="tag">إعلانات</span>
+          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/2.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(167,139,250,0.5), rgba(139,92,246,0.4));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>شركة تقنية</h4>
+          <p>موقع + SEO + تسويق بالمحتوى</p>
+          <div class="tags">
+            <span class="tag">موقع</span>
+            <span class="tag">SEO</span>
+          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/3.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(196,181,253,0.5), rgba(167,139,250,0.4));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>عيادة طبية</h4>
+          <p>هوية + موقع حجوزات + إعلانات</p>
+          <div class="tags">
+            <span class="tag">براندينج</span>
+            <span class="tag">موقع</span>
+          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/4.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(109,40,217,0.5), rgba(139,92,246,0.4));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>علامة أزياء</h4>
+          <p>تصوير + محتوى + حملات إعلانية</p>
+          <div class="tags">
+            <span class="tag">محتوى</span>
+            <span class="tag">إعلانات</span>
+          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/5.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(139,92,246,0.4), rgba(167,139,250,0.3));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-default">
+          <h4>شركة ناشئة</h4>
+          <p>استراتيجية + هوية + إطلاق</p>
+          <div class="tags">
+            <span class="tag">استراتيجية</span>
+            <span class="tag">إطلاق</span>
+          </div>
+        </div>
+        <div class="portfolio-hover">
+          <div class="hover-img" style="background: url('images/portfolio/6.jpg') center/cover no-repeat, linear-gradient(145deg, rgba(167,139,250,0.4), rgba(109,40,217,0.3));"></div>
+          <a href="#contact" class="hover-link">انظر هنا ←</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- Pricing Section -->
     <section id="pricing" class="pricing-section">
@@ -3090,11 +3080,7 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="#" class="logo">
-              <img src="images/logo.svg" alt="SIMA" />
-              <div class="logo-text">
-                <span class="main">SIMA</span>
-                <span class="sub">نمنح مشروعك سمته</span>
-              </div>
+              <img src="images/logo1.svg" alt="SIMA" />
             </a>
             <p>
               وكالة تسويق رقمي متكاملة نساعدك في بناء حضور رقمي قوي ومؤثر ينقل
@@ -3219,42 +3205,26 @@
            الـ animation بتشيل -50% من عرض الـ track
            لأن العناصر متكررة x4 فـ -50% = نسختين = loopp سلس
         ============================================================ */
-      (function buildMarquee() {
-        const items = [
-          "تسويق رقمي",
-          "هوية بصرية",
-          "إدارة سوشيال ميديا",
-          "تصميم مواقع",
-          "حملات إعلانية",
-          "SEO",
-          "تسويق بالمحتوى",
-          "تطوير تطبيقات موبيل",
-          "تسويق رقمي",
-          "هوية بصرية",
-          "إدارة سوشيال ميديا",
-          "تصميم مواقع",
-          "حملات إعلانية",
-          "SEO",
-          "تسويق بالمحتوى",
-          "تطوير تطبيقات موبيل",
-          "تسويق رقمي",
-          "هوية بصرية",
-          "إدارة سوشيال ميديا",
-          "تصميم مواقع",
-          "حملات إعلانية",
-          "SEO",
-          "تسويق بالمحتوى",
-          "تطوير تطبيقات موبيل",
-        ];
-        const track = document.getElementById("marqueeTrack");
-        const repeated = [...items, ...items, ...items, ...items];
-        repeated.forEach((text) => {
-          const span = document.createElement("span");
-          span.className = "marquee-item";
-          span.innerHTML = `<span class="dot"></span>${text}`;
-          track.appendChild(span);
-        });
-      })();
+  (function buildMarquee() {
+  const items = [
+    "تسويق رقمي",
+    "هوية بصرية",
+    "إدارة سوشيال ميديا",
+    "تصميم مواقع",
+    "حملات إعلانية",
+    "SEO",
+    "تسويق بالمحتوى",
+    "تطوير تطبيقات موبيل",
+  ];
+  const track = document.getElementById("marqueeTrack");
+  // نسختين بس = الـ animation تشيل -50% بشكل صح
+  [...items, ...items].forEach((text) => {
+    const span = document.createElement("span");
+    span.className = "marquee-item";
+    span.innerHTML = `<span class="dot"></span>${text}`;
+    track.appendChild(span);
+  });
+})();
 
       const statsObserver = new IntersectionObserver(
         (entries) => {
