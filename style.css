@@ -1732,15 +1732,13 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* تنسيق اللينكات العادية */
 .nav-links a {
-    text-decoration: none; /* بنشيل الخط الافتراضي بتاع اللينكات */
+    text-decoration: none; 
     color: #555; 
-    padding-bottom: 5px; /* مسافة بسيطة تحت الكلمة عشان الخط ميبقاش لازق فيها */
-    transition: 0.3s ease; /* عشان التأثير يكون ناعم */
+    padding-bottom: 5px; 
+    transition: 0.3s ease;
 }
 
-/* تنسيق اللينك لما يكون متأكتف */
 .nav-links a.active {
     color: #fff; 
     border-bottom: 2px solid var(--gradient);

@@ -166,16 +166,13 @@ function animateMarquee() {
 }
 
 animateMarquee();
-/* Prices */
 
-// ننتظر حتى يتم تحميل الصفحة بالكامل
 });
 document.addEventListener('DOMContentLoaded', function() {
 
     const phoneNumber = '01100133486'; 
     const startButtons = document.querySelectorAll('.pricing-btn');
 
-    console.log(`🔍 تم العثور على ${startButtons.length} أزرار في الصفحة`); // لمعرفة هل اكتشف الأزرار أم لا
 
     startButtons.forEach(button => {
         button.addEventListener('click', function(e) {
