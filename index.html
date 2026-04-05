@@ -377,7 +377,7 @@
       }
       @media(min-width:1023px){
         .nav-cta{
-            display: block;
+            display: flex;
         }
       }
       .menu-btn {
@@ -1993,7 +1993,7 @@
             />
           </svg>
         </a>
-
+<a href="admin.html" class="admin-nav-link" style="display:none">لوحة التحكم</a>
           <button class="menu-btn" id="menuBtn">
             <svg
               width="24"
@@ -2031,6 +2031,8 @@
           "
           >ابدأ مشروعك</a
         >
+        <a href="admin.html" class="admin-nav-link" style="display:none">لوحة التحكم</a>
+
       </div>
     </nav>
 
@@ -3222,7 +3224,8 @@
           ></path></svg
       ></span>
     </button>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="sama.js"></script>
     <script>
       /* ============ PRELOADER ============ */
       window.addEventListener("load", () => {
