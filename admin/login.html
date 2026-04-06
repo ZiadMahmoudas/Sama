@@ -1932,8 +1932,10 @@
           const url = map[key]?.url || "images/Logo1.svg";
           return `
       <div class="logo-card">
+      
+        <h4>${label}</h4>
         <div class="logo-preview" onclick="editLogo('${key}','${url}')"><img src="${url}" alt="${label}" onerror="this.src=''/>
-            <button  onclick="editLogo('${key}','${url}')" class="logo-edit-btn" >تعديل الرابط</button>
+          <button  onclick="editLogo('${key}','${url}')" class="logo-edit-btn" >تعديل الرابط</button>
             </div>
         
       </div>`;
