@@ -32,7 +32,10 @@ async function loadServices() {
     <div class="service-card reveal">
       <span class="number">${s.number || String(i+1).padStart(2,'0')}</span>
       <div class="service-icon">
-        ${SERVICE_ICONS[i % SERVICE_ICONS.length]}
+       ${s.icon_url 
+  ? `<img src="${s.icon_url}" style="width:32px;height:32px;object-fit:contain" alt="${s.title}"/>`
+  : SERVICE_ICONS[i % SERVICE_ICONS.length]
+}
       </div>
       <h3>${s.title}</h3>
       <p>${s.description}</p>
@@ -143,7 +146,7 @@ async function loadPortfolio() {
       </div>
       <div class="portfolio-hover">
         <div class="hover-img" style="background: ${p.image_url ? `url('${p.image_url}') center/cover no-repeat, ` : ''}${p.gradient || 'linear-gradient(145deg,rgba(139,92,246,0.5),rgba(109,40,217,0.4))'}"></div>
-        <a href="${p.link_url || '#contact'}" class="hover-link">انظر هنا ←</a>
+        <a target="_blank" href="${p.link_url || '#contact'}" class="hover-link">انظر هنا ←</a>
       </div>
     </div>
   `).join('');

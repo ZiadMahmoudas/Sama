@@ -34,7 +34,44 @@
         color: white;
         min-height: 100vh;
       }
-
+.icon-upload-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+.icon-preview {
+  width: 72px;
+  height: 72px;
+  background: var(--gradient);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  font-size: .7rem;
+  gap: .25rem;
+  flex-direction: column;
+}
+.upload-icon-btn {
+  background: rgba(139,92,246,.2);
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: all .3s;
+  white-space: nowrap;
+}
+.upload-icon-btn:hover { background: rgba(139,92,246,.35); }
       /* ===== LOGIN ===== */
       #loginPage {
         display: flex;
@@ -1080,6 +1117,28 @@
           ></textarea>
         </div>
         <div class="form-group">
+  <label>أيقون الخدمة</label>
+  <div class="icon-upload-area" id="iconUploadArea">
+    <div class="icon-preview" id="iconPreview">
+      <img id="iconPreviewImg" src="" alt="" style="display:none;width:60px;height:60px;object-fit:contain;border-radius:12px"/>
+      <div id="iconPlaceholder">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>اختر أيقون</span>
+      </div>
+    </div>
+    <input type="file" id="iconFile" accept="image/*,image/svg+xml" style="display:none"/>
+    <div style="display:flex;gap:.5rem;flex-direction:column">
+      <button type="button" class="upload-icon-btn" onclick="document.getElementById('iconFile').click()">
+        رفع صورة
+      </button>
+      <span id="iconUploadStatus" style="font-size:.8rem;color:var(--gray)"></span>
+    </div>
+  </div>
+  <input type="hidden" id="serviceIconUrl"/>
+</div>
+        <div class="form-group">
           <label>المميزات (اضغط Enter لإضافة)</label>
           <div class="tags-input-wrap" id="serviceTagsWrap">
             <input
@@ -1598,6 +1657,7 @@
         document.getElementById("serviceDesc").value = data.description;
         document.getElementById("serviceEnabled").checked = data.enabled;
         serviceTagsCtrl.setTags(data.features || []);
+        setIconPreview(data.icon_url || '');
         openModal("serviceModal");
       }
 
@@ -1608,6 +1668,7 @@
           title: document.getElementById("serviceTitle").value.trim(),
           description: document.getElementById("serviceDesc").value.trim(),
           features: serviceTagsCtrl.getTags(),
+          icon_url: document.getElementById('serviceIconUrl').value.trim(),
           enabled: document.getElementById("serviceEnabled").checked,
         };
         if (!payload.title) {
@@ -2016,6 +2077,57 @@
             .classList.add("active");
         });
       });
+      // ==============================
+// ICON UPLOAD
+// ==============================
+document.getElementById('iconFile').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const status = document.getElementById('iconUploadStatus');
+  status.textContent = 'جارٍ الرفع...';
+  
+  const ext = file.name.split('.').pop();
+  const fileName = `icon_${Date.now()}.${ext}`;
+  
+  const { data, error } = await sb.storage
+    .from('icons')
+    .upload(fileName, file, { upsert: true });
+  
+  if (error) {
+    status.textContent = 'فشل الرفع: ' + error.message;
+    return;
+  }
+  
+  const { data: { publicUrl } } = sb.storage
+    .from('icons')
+    .getPublicUrl(fileName);
+  
+  document.getElementById('serviceIconUrl').value = publicUrl;
+  
+  // show preview
+  const img = document.getElementById('iconPreviewImg');
+  img.src = publicUrl;
+  img.style.display = 'block';
+  document.getElementById('iconPlaceholder').style.display = 'none';
+  
+  status.textContent = '✓ تم الرفع';
+  status.style.color = 'var(--success)';
+});
+
+function setIconPreview(url) {
+  const img = document.getElementById('iconPreviewImg');
+  const placeholder = document.getElementById('iconPlaceholder');
+  if (url) {
+    img.src = url;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }
+  document.getElementById('serviceIconUrl').value = url || '';
+}
     </script>
   </body>
 </html>

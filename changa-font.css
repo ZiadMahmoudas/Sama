@@ -1,0 +1,437 @@
+/* ============================================
+   CHANGA FONT - سيما
+   الملف ده حطه قبل أي CSS تاني
+============================================ */
+
+@font-face {
+  font-family: "Changa";
+  src: url("fonts/Changa-Regular.WOFF2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Changa";
+  src: url("fonts/Changa-Medium.WOFF2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Changa";
+  src: url("fonts/Changa-SemiBold.WOF") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Changa";
+  src: url("fonts/Changa-Bold.WOFF2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ============================================
+   CSS VARIABLES - متغيرات الخط
+============================================ */
+:root {
+  --font-primary: "Changa", "Tajawal", sans-serif;
+
+  /* الأوزان */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* الأحجام */
+  --fs-xs:   0.75rem;   /* 12px */
+  --fs-sm:   0.875rem;  /* 14px */
+  --fs-base: 1rem;      /* 16px */
+  --fs-md:   1.125rem;  /* 18px */
+  --fs-lg:   1.25rem;   /* 20px */
+  --fs-xl:   1.5rem;    /* 24px */
+  --fs-2xl:  1.75rem;   /* 28px */
+  --fs-3xl:  2rem;      /* 32px */
+  --fs-4xl:  2.5rem;    /* 40px */
+  --fs-5xl:  3rem;      /* 48px */
+  --fs-hero: clamp(2.5rem, 6vw, 4.5rem);
+
+  /* تباعد الأسطر */
+  --lh-tight:  1.2;
+  --lh-normal: 1.6;
+  --lh-loose:  1.9;
+}
+
+
+/* ============================================
+   BASE - الأساس
+============================================ */
+*,
+*::before,
+*::after {
+  font-family: var(--font-primary);
+}
+
+body {
+  font-family:   var(--font-primary);
+  font-weight:   var(--fw-regular);
+  font-size:     var(--fs-base);
+  line-height:   var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ============================================
+   HEADINGS - العناوين
+============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  line-height: var(--lh-tight);
+}
+
+h1 {
+  font-size:   var(--fs-hero);
+  font-weight: var(--fw-bold);
+}
+
+h2 {
+  font-size:   clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--fw-bold);
+}
+
+h3 {
+  font-size:   var(--fs-2xl);
+  font-weight: var(--fw-bold);
+}
+
+h4 {
+  font-size:   var(--fs-xl);
+  font-weight: var(--fw-semibold);
+}
+
+h5 {
+  font-size:   var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+
+h6 {
+  font-size:   var(--fs-md);
+  font-weight: var(--fw-medium);
+}
+
+
+/* ============================================
+   TYPOGRAPHY UTILITIES - أدوات الخط
+============================================ */
+
+/* الأوزان */
+.font-regular  { font-weight: var(--fw-regular)  !important; }
+.font-medium   { font-weight: var(--fw-medium)   !important; }
+.font-semibold { font-weight: var(--fw-semibold) !important; }
+.font-bold     { font-weight: var(--fw-bold)     !important; }
+
+/* الأحجام */
+.text-xs   { font-size: var(--fs-xs)   !important; }
+.text-sm   { font-size: var(--fs-sm)   !important; }
+.text-base { font-size: var(--fs-base) !important; }
+.text-md   { font-size: var(--fs-md)   !important; }
+.text-lg   { font-size: var(--fs-lg)   !important; }
+.text-xl   { font-size: var(--fs-xl)   !important; }
+.text-2xl  { font-size: var(--fs-2xl)  !important; }
+.text-3xl  { font-size: var(--fs-3xl)  !important; }
+
+/* تباعد الأسطر */
+.leading-tight  { line-height: var(--lh-tight)  !important; }
+.leading-normal { line-height: var(--lh-normal) !important; }
+.leading-loose  { line-height: var(--lh-loose)  !important; }
+
+
+/* ============================================
+   COMPONENT OVERRIDES - تطبيق على المكونات
+============================================ */
+
+/* Navbar */
+.navbar,
+.nav-links a,
+.nav-cta,
+.mobile-menu a {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+}
+
+.nav-cta {
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.02em;
+}
+
+/* Hero */
+.hero h1 {
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-lg);
+  line-height: var(--lh-loose);
+}
+
+.hero-badge span {
+  font-weight: var(--fw-medium);
+  font-size:   var(--fs-sm);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+  letter-spacing: 0.01em;
+}
+
+/* Stats */
+.stat-number {
+  font-weight: var(--fw-bold);
+}
+
+.stat-label {
+  font-weight: var(--fw-medium);
+  font-size:   var(--fs-sm);
+}
+
+/* Section Headers */
+.section-badge {
+  font-weight: var(--fw-medium);
+  font-size:   var(--fs-sm);
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.01em;
+}
+
+.section-desc {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-md);
+  line-height: var(--lh-loose);
+}
+
+/* Service Cards */
+.service-card h3 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-xl);
+}
+
+.service-card p {
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-loose);
+}
+
+.service-features span {
+  font-weight: var(--fw-medium);
+  font-size:   var(--fs-xs);
+  letter-spacing: 0.03em;
+}
+
+/* Portfolio */
+.portfolio-default h4 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-xl);
+}
+
+.portfolio-default p {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+.hover-link {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-base);
+}
+
+/* Pricing */
+.pricing-card h3 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-xl);
+}
+
+.pricing-card .subtitle {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+.pricing-card .amount {
+  font-weight: var(--fw-bold);
+}
+
+.pricing-card .period {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+.pricing-features li {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-base);
+}
+
+.pricing-btn {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+}
+
+/* FAQ */
+.faq-question {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-semibold);
+  font-size:   var(--fs-md);
+}
+
+.faq-answer p {
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-loose);
+}
+
+/* Testimonials */
+.testimonial-card p {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-md);
+  line-height: var(--lh-loose);
+}
+
+.testimonial-author h4 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-base);
+}
+
+.testimonial-author span {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+/* Contact Form */
+.form-title {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-xl);
+}
+
+.form-group label {
+  font-weight: var(--fw-medium);
+  font-size:   var(--fs-sm);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-base);
+}
+
+.submit-btn {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+}
+
+/* Footer */
+.footer-title {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+}
+
+.footer-links a {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+.footer-bottom p {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-xs);
+}
+
+/* Marquee */
+.marquee-item {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+  letter-spacing: 0.02em;
+}
+
+/* Process */
+.process-number {
+  font-weight: var(--fw-bold);
+}
+
+.process-step h3 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-lg);
+}
+
+.process-step p {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+  line-height: var(--lh-normal);
+}
+
+/* Info Cards */
+.info-card h4 {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-md);
+}
+
+.info-card p,
+.info-card a {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+/* Floating Cards */
+.floating-card .number {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-xl);
+}
+
+.floating-card .label {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-xs);
+}
+
+/* Admin Dashboard */
+.login-box h2 {
+  font-weight: var(--fw-bold);
+}
+
+.page-header h2 {
+  font-weight: var(--fw-bold);
+}
+
+.item-title {
+  font-weight: var(--fw-bold);
+  font-size:   var(--fs-base);
+}
+
+.item-desc {
+  font-weight: var(--fw-regular);
+  font-size:   var(--fs-sm);
+}
+
+.save-btn,
+.add-btn,
+.login-btn {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+}
+
+.form-input,
+.form-textarea {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+}
