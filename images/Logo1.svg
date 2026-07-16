@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 190" role="img" aria-labelledby="title">
+  <title>SIMA Digital Agency</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="0.55" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <rect x="14" y="14" width="160" height="160" rx="48" fill="#100b1d" stroke="url(#g)" stroke-width="7"/>
+  <path d="M126 56c-10-11-23-17-39-17-23 0-40 12-40 30 0 18 15 26 36 31 15 4 22 7 22 13 0 8-8 12-18 12-15 0-28-6-38-16l-14 18c13 14 31 21 52 21 25 0 43-12 43-33 0-19-13-26-37-32-15-4-22-7-22-13 0-6 6-10 16-10 12 0 21 4 29 13z" fill="url(#g)"/>
+  <text x="205" y="103" font-family="Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="10" fill="white">SIMA</text>
+  <text x="210" y="142" font-family="Arial, sans-serif" font-size="22" letter-spacing="5" fill="#c4b5fd">DIGITAL AGENCY</text>
+</svg>
