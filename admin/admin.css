@@ -1,3 +1,19 @@
+/* استهداف عنصر الـ select نفسه لتنسيقه */
+select {
+  background-color: #120e22; /* لون بنفسجي داكن جداً يناسب الخلفية */
+  color: #ffffff;
+  border: 1px solid #7c3aed; /* لون الحواف البنفسجي */
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* استهداف الخيارات المنسدلة (التي تظهر باللون الأبيض حالياً) */
+select option {
+  background-color: #1a153a; /* لون الخلفية البنفسجي المخصص للقائمة */
+  color: #ffffff; /* لون النص */
+  padding: 10px;
+}
 :root {
   --bg: #090612;
   --panel: rgba(20, 15, 31, 0.94);

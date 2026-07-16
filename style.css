@@ -7,7 +7,22 @@
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.7; }
   100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
 }
+/* استهداف عنصر الـ select نفسه لتنسيقه */
+select {
+  background-color: #120e22; /* لون بنفسجي داكن جداً يناسب الخلفية */
+  color: #ffffff;
+  border: 1px solid #7c3aed; /* لون الحواف البنفسجي */
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+}
 
+/* استهداف الخيارات المنسدلة (التي تظهر باللون الأبيض حالياً) */
+select option {
+  background-color: #1a153a; /* لون الخلفية البنفسجي المخصص للقائمة */
+  color: #ffffff; /* لون النص */
+  padding: 10px;
+}
 .click-bubble {
   position: fixed;
   width: 40px;
